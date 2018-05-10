@@ -8,13 +8,12 @@ import java.util.stream.Stream;
 
 import static org.junit.platform.commons.support.AnnotationSupport.findAnnotation;
 
-
 public class TckCoverageExtension implements TestTemplateInvocationContextProvider {
-
 
     @Override
     public boolean supportsTestTemplate(ExtensionContext extensionContext) {
-        return findAnnotation(extensionContext.getRequiredTestMethod(), TckTest.class).isPresent();
+        return findAnnotation(extensionContext.getRequiredTestMethod(), TckTest.class).isPresent()
+                && findAnnotation(extensionContext.getRequiredTestClass(), Section.class).isPresent();
     }
 
     @Override

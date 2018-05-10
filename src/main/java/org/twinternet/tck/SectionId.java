@@ -9,11 +9,9 @@ import java.lang.annotation.Target;
  * @author Kevin Berendsen <info@kevinberendsen.nl>
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Section {
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface SectionId {
 
-    String id();
-
-    String description();
+    String value();
 
 }

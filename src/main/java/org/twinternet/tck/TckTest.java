@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface TckTest {
 
-    String section();
+    SectionId section();
 
     String id();
 

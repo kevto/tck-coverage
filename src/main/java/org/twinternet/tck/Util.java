@@ -4,9 +4,13 @@ import org.twinternet.tck.writer.ConsoleWriter;
 import org.twinternet.tck.writer.CoverageReportWriter;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
+
+import static org.junit.platform.commons.util.AnnotationUtils.findAnnotation;
 
 /**
  * @author Kevin Berendsen <info@kevinberendsen.nl>
@@ -39,5 +43,15 @@ public final class Util {
             return file;
         }
         return null;
+    }
+
+    Section getSectionFromClass(final Class<?> testCls) {
+        final Optional<Section> section = findAnnotation(testCls, Section.class);
+        return section.orElse(null);
+    }
+
+    TckTest getTckTestFromMethod(final Method method) {
+        final Optional<TckTest> tckTest = findAnnotation(method, TckTest.class);
+        return tckTest.orElse(null);
     }
 }
