@@ -10,7 +10,7 @@ public interface CoverageReportWriter {
 
     void writeMetadata(CoverageReportProperties jsrProperties);
 
-    void writeGlobalResults(final Double coveragePercentage, final List<String> failedSections);
+    void writeGlobalResults(final Float coveragePercentage, final List<TckTestResult> failedTests);
 
     void writeSectionResults(final String id, final String description, final TckTestResult result);
 

@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Kevin Berendsen <info@kevinberendsen.nl>
@@ -48,7 +49,16 @@ final class CoverageReport {
         return context;
     }
 
-    void write() {
-        // TODO
+    synchronized void write() {
+        // Metadata / header
+        writer.writeMetadata(jsrProperties);
+        final List<TckTestResult> failedResults = context.getTestResults().stream()
+                .sorted(TestResultSorter::compareResults)
+                .filter(t -> t.getThrowableType() != TckTestResult.ThrowableType.SUCCESS)
+                .collect(Collectors.toList());
+
+        // (Total results - failed results) * 100 / total results
+        final Float successRate = ((context.getTestResults().size() - failedResults.size()) * 100.0f) / context.getTestResults().size();
+        writer.writeGlobalResults(successRate, failedResults);
     }
 }

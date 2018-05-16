@@ -67,7 +67,7 @@ public final class TemplateParserWriter implements CoverageReportWriter {
     }
 
     @Override
-    public void writeGlobalResults(Double coveragePercentage, List<String> failedSections) {
+    public void writeGlobalResults(Float coveragePercentage, List<TckTestResult> failedTests) {
         throw new UnsupportedOperationException();
     }
 

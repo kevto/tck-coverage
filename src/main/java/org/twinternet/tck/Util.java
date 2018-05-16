@@ -1,9 +1,11 @@
 package org.twinternet.tck;
 
-import org.twinternet.tck.writer.ConsoleWriter;
+import org.twinternet.tck.writer.OutputStreamWriter;
 import org.twinternet.tck.writer.CoverageReportWriter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URISyntaxException;
@@ -23,7 +25,7 @@ public final class Util {
     }
 
     static CoverageReportWriter getDefaultCoverageReportWriter() {
-        return ConsoleWriter.of();
+        return OutputStreamWriter.of(System.out);
     }
 
     public static File getFileFromResources(final String filename) {

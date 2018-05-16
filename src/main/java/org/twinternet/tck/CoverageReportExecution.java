@@ -1,5 +1,8 @@
 package org.twinternet.tck;
 
+import org.twinternet.tck.writer.DefaultFileWriter;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -8,11 +11,14 @@ import java.util.Objects;
  */
 final class CoverageReportExecution {
 
+    private static final String RESULTS_FILENAME = "test-results.txt";
+
     private static final Object LOCK = new Object();
+
     private static volatile CoverageReport report;
 
     private CoverageReportExecution() {
-        // Empty.
+        // Prevent instantiation
     }
 
     static CoverageReport getCurrentReport() {
@@ -34,11 +40,15 @@ final class CoverageReportExecution {
     }
 
     private static CoverageReport createReportInstance() {
-        final CoverageReport report;
+        CoverageReport report;
         try {
-            report = CoverageReport.of(Util.getDefaultCoverageReportWriter());
+            report = CoverageReport.of(DefaultFileWriter.of(new File(RESULTS_FILENAME)));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            try {
+                report = CoverageReport.of(Util.getDefaultCoverageReportWriter());
+            } catch (IOException e1) {
+                throw new RuntimeException(e);
+            }
         }
         return report;
     }

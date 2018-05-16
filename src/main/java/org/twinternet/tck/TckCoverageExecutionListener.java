@@ -3,24 +3,21 @@ package org.twinternet.tck;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
 
+import java.io.PrintStream;
+
 /**
  * @author Kevin Berendsen <info@kevinberendsen.nl>
  */
 public final class TckCoverageExecutionListener implements TestExecutionListener {
 
-
-
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
-        // TODO
+        CoverageReportExecution.createNewReport();
     }
 
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
-        // TODO
-        final CoverageReport report = CoverageReportExecution.getCurrentReport();
-        report.getContext().getTestResults().sort(new TestResultSorter());
-        System.out.println("Testplan Execution ended");
+        CoverageReportExecution.getCurrentReport().write();
     }
 
 
