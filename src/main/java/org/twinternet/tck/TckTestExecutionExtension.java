@@ -8,27 +8,32 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 import static org.junit.platform.commons.util.AnnotationUtils.findAnnotation;
-import static org.twinternet.tck.TckCoverageExecutionListener.getReport;
 
 /**
  * @author Kevin Berendsen <info@kevinberendsen.nl>
  */
 final class TckTestExecutionExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
+    private final CoverageReportContext context = CoverageReportExecution.getCurrentReport().getContext();
+
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
-        // TODO
-        System.out.println(extensionContext.getDisplayName() + " before test");
+        final Class<?> testClass = extensionContext.getRequiredTestClass();
+        if (context.isClassRegistered(testClass)) {
+            return;
+        }
+
+        final Section section = Util.getAnnotationFromClass(testClass, Section.class);
+        context.registerSection(section);
+        context.registerClass(testClass);
     }
 
     @Override
     public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
-        // TODO
-        final Optional<Throwable> throwable = extensionContext.getExecutionException();
-        if (throwable.isPresent()) {
-            System.out.println(extensionContext.getDisplayName() + " after test: " + throwable.get().getMessage());
-        } else {
-            System.out.println(extensionContext.getDisplayName() + " after test");
-        }
+        final Method testMethod = extensionContext.getRequiredTestMethod();
+        final TckTest tckTest = Util.getAnnotationFromMethod(testMethod, TckTest.class);
+        final TckTestResult testResult = TckTestResult.of(tckTest,
+                extensionContext.getExecutionException().orElse(null));
+        context.addTestResult(testResult);
     }
 }

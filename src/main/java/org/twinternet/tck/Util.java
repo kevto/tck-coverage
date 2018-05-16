@@ -4,6 +4,7 @@ import org.twinternet.tck.writer.ConsoleWriter;
 import org.twinternet.tck.writer.CoverageReportWriter;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -45,13 +46,13 @@ public final class Util {
         return null;
     }
 
-    Section getSectionFromClass(final Class<?> testCls) {
-        final Optional<Section> section = findAnnotation(testCls, Section.class);
+    static <T extends Annotation> T getAnnotationFromClass(final Class<?> testCls, final Class<T> annotationCls) {
+        final Optional<T> section = findAnnotation(testCls, annotationCls);
         return section.orElse(null);
     }
 
-    TckTest getTckTestFromMethod(final Method method) {
-        final Optional<TckTest> tckTest = findAnnotation(method, TckTest.class);
+    static <T extends Annotation> T getAnnotationFromMethod(final Method method, final Class<T> annotationCls) {
+        final Optional<T> tckTest = findAnnotation(method, annotationCls);
         return tckTest.orElse(null);
     }
 }

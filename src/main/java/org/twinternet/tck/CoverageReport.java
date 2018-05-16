@@ -42,4 +42,8 @@ final class CoverageReport {
     static CoverageReport of(final CoverageReportWriter writer) throws IOException {
         return of(writer, CoverageReportContext.of());
     }
+
+    CoverageReportContext getContext() {
+        return context;
+    }
 }

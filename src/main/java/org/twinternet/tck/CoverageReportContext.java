@@ -28,6 +28,11 @@ final class CoverageReportContext {
         registeredClasses.add(cls);
     }
 
+    boolean isClassRegistered(final Class<?> cls) {
+        Objects.requireNonNull(cls);
+        return registeredClasses.contains(cls);
+    }
+
     void registerSection(final Section section) {
         registeredSections.putIfAbsent(section.id().value(), section);
     }
