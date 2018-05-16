@@ -1,9 +1,12 @@
 package org.twinternet.tck.writer;
 
+import org.twinternet.tck.CoverageReportProperties;
+import org.twinternet.tck.TckTestResult;
 import org.twinternet.tck.Util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -58,5 +61,18 @@ public final class TemplateParserWriter implements CoverageReportWriter {
     }
 
 
+    @Override
+    public void writeMetadata(CoverageReportProperties jsrProperties) {
+        throw new UnsupportedOperationException();
+    }
 
+    @Override
+    public void writeGlobalResults(Double coveragePercentage, List<String> failedSections) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void writeSectionResults(String id, String description, TckTestResult result) {
+        throw new UnsupportedOperationException();
+    }
 }

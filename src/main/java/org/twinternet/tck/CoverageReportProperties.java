@@ -6,7 +6,7 @@ import java.util.Properties;
 /**
  * @author Kevin Berendsen <info@kevinberendsen.nl>
  */
-final class CoverageReportProperties {
+public final class CoverageReportProperties {
 
     private static final String JSR_ID_KEY              = "jsr.id";
     private static final String JSR_VERSION_KEY         = "jsr.version";
@@ -52,31 +52,31 @@ final class CoverageReportProperties {
         }
     }
 
-    String getJsrId() {
+    public String getJsrId() {
         return properties.getProperty(JSR_ID_KEY, DEFAULT_VALUE);
     }
 
-    String getJsrDescription() {
+    public String getJsrDescription() {
         return properties.getProperty(JSR_DESC_KEY, DEFAULT_VALUE);
     }
 
-    String getJsrVersion() {
+    public String getJsrVersion() {
         return properties.getProperty(JSR_VERSION_KEY, DEFAULT_VALUE);
     }
 
-    String getJsrUrl() {
+    public String getJsrUrl() {
         return properties.getProperty(JSR_URL_KEY, DEFAULT_VALUE);
     }
 
-    String getJsrCopyright() {
+    public String getJsrCopyright() {
         return properties.getProperty(JSR_COPYRIGHT_KEY, DEFAULT_VALUE);
     }
 
-    String getJsrLicenseType() {
+    public String getJsrLicenseType() {
         return properties.getProperty(JSR_LICENSE_TYPE_KEY, DEFAULT_VALUE);
     }
 
-    String getJsrLicenseUrl() {
+    public String getJsrLicenseUrl() {
         return properties.getProperty(JSR_LICENSE_URL_KEY, DEFAULT_VALUE);
     }
 

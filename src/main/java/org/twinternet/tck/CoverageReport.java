@@ -5,6 +5,7 @@ import org.twinternet.tck.writer.CoverageReportWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,5 +46,9 @@ final class CoverageReport {
 
     CoverageReportContext getContext() {
         return context;
+    }
+
+    void write() {
+        // TODO
     }
 }

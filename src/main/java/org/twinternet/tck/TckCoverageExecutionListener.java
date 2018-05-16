@@ -18,7 +18,8 @@ public final class TckCoverageExecutionListener implements TestExecutionListener
     @Override
     public void testPlanExecutionFinished(TestPlan testPlan) {
         // TODO
-        //final CoverageReport report = CoverageReportExecution.getCurrentReport();
+        final CoverageReport report = CoverageReportExecution.getCurrentReport();
+        report.getContext().getTestResults().sort(new TestResultSorter());
         System.out.println("Testplan Execution ended");
     }
 

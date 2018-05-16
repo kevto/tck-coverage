@@ -45,4 +45,8 @@ final class CoverageReportContext {
         registeredTestResultIds.add(testResult.getId());
         testResults.add(testResult);
     }
+
+    List<TckTestResult> getTestResults() {
+        return testResults;
+    }
 }

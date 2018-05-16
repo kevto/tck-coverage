@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * @author Kevin Berendsen <info@kevinberendsen.nl>
  */
-final class TckTestResult {
+public final class TckTestResult {
 
     private final TckTest tckTest;
 
@@ -35,23 +35,23 @@ final class TckTestResult {
         return new TckTestResult(tckTest, throwable, throwableType);
     }
 
-    String getId() {
+    public String getId() {
         return tckTest.id();
     }
 
-    String getSectionId() {
+    public String getSectionId() {
         return tckTest.section().value();
     }
 
-    String getDescription() {
+    public String getDescription() {
         return tckTest.description();
     }
 
-    ThrowableType getThrowableType() {
+    public ThrowableType getThrowableType() {
         return throwableType;
     }
 
-    Optional<Throwable> getThrowable() {
+    public Optional<Throwable> getThrowable() {
         return Optional.ofNullable(throwable);
     }
 
