@@ -59,7 +59,7 @@ public class OutputStreamWriter implements CoverageReportWriter {
     public void writeGlobalResults(Float coveragePercentage, List<TckTestResult> failedTests) {
         final StringBuilder globalResults =
                 new StringBuilder("Coverage Rate:\t\t" + coveragePercentage + "%" + NL);
-        if (failedTests.size() != 0) {
+        if (!failedTests.isEmpty()) {
             globalResults.append("Failed Tests:\t\t").append(failedTests.size()).append(NL).append(NL);
 
             for (TckTestResult failedTest : failedTests) {
