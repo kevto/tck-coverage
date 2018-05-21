@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 final class CoverageReportExecution {
 
-    private static final String RESULTS_FILENAME = "test-results.txt";
+    private static final String RESULTS_FILENAME = "target/test-results.txt";
 
     private static final Object LOCK = new Object();
 

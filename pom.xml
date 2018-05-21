@@ -6,7 +6,7 @@
 
     <groupId>org.twinternet</groupId>
     <artifactId>tck-coverage</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.4</version>
     <build>
         <plugins>
             <plugin>
@@ -48,5 +48,13 @@
         </dependency>
 
     </dependencies>
+    
+    <distributionManagement> 
+        <repository> 
+            <id>bintray-twinternet-oss</id> 
+            <name>twinternet-oss</name> 
+            <url>https://api.bintray.com/maven/twinternet/oss/tck-coverage/;publish=1</url> 
+        </repository> 
+    </distributionManagement>
 
 </project>
