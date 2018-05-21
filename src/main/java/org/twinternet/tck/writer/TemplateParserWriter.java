@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Objects;
+import org.twinternet.tck.SectionResults;
 
 /**
  * TODO Use Apache Velocity
@@ -72,7 +73,12 @@ public final class TemplateParserWriter implements CoverageReportWriter {
     }
 
     @Override
-    public void writeSectionResults(String id, String description, TckTestResult result) {
+    public void writeSectionResults(List<SectionResults> sectionResults) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void writeResults(String header, List<TckTestResult> results) {
         throw new UnsupportedOperationException();
     }
 }

@@ -1,6 +1,7 @@
 package org.twinternet.tck;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 final class CoverageReportContext {
 
@@ -32,6 +33,11 @@ final class CoverageReportContext {
         Objects.requireNonNull(cls);
         return registeredClasses.contains(cls);
     }
+    
+    boolean isSectionRegistered(final String id) {
+        Objects.requireNonNull(id);
+        return registeredSections.containsKey(id);
+    }
 
     void registerSection(final Section section) {
         registeredSections.putIfAbsent(section.id().value(), section);
@@ -44,6 +50,11 @@ final class CoverageReportContext {
         }
         registeredTestResultIds.add(testResult.getId());
         testResults.add(testResult);
+    }
+    
+    List<Section> getSections() {
+        return registeredSections.values().stream()
+                .collect(Collectors.toList());
     }
 
     List<TckTestResult> getTestResults() {

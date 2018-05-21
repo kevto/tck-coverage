@@ -9,10 +9,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.twinternet.tck.Section;
+import org.twinternet.tck.SectionResults;
 
 public class OutputStreamWriter implements CoverageReportWriter {
     private static final String NL = System.getProperty("line.separator");
     private static final String DIVIDER = "####################################################################################" + NL;
+    private static final String WS_4 = "    ";
     private final OutputStream outputStream;
 
     protected OutputStreamWriter(final OutputStream outputStream) {
@@ -27,6 +30,7 @@ public class OutputStreamWriter implements CoverageReportWriter {
     private void writeString(final String text) {
         try {
             outputStream.write(text.getBytes(StandardCharsets.US_ASCII));
+            outputStream.flush();
         } catch (IOException e) {
             System.err.println("Couldn't write text to output stream: " + e.getMessage());
         }
@@ -64,8 +68,8 @@ public class OutputStreamWriter implements CoverageReportWriter {
 
             for (TckTestResult failedTest : failedTests) {
                 globalResults.append("[ERROR]\t").append(failedTest.getId()).append(" ").append(failedTest.getDescription()).append(NL);
-                globalResults.append("\tType: ").append(failedTest.getThrowableType()).append(NL);
-                globalResults.append("\tCause: ");
+                globalResults.append(WS_4).append("Type: ").append(failedTest.getThrowableType()).append(NL);
+                globalResults.append(WS_4).append("Cause: ");
                 final Optional<Throwable> throwable = failedTest.getThrowable();
                 if (throwable.isPresent()) {
                     globalResults.append(throwable.get().getMessage());
@@ -80,7 +84,28 @@ public class OutputStreamWriter implements CoverageReportWriter {
     }
 
     @Override
-    public void writeSectionResults(String id, String description, TckTestResult result) {
-        throw new UnsupportedOperationException();
+    public void writeSectionResults(final List<SectionResults> sectionResults) {
+        for (SectionResults sr : sectionResults)
+            writeSingleSectionResults(sr);
+    }
+    
+    private void writeSingleSectionResults(final SectionResults sectionResults) {
+        final String header = String.format("[%s] %s", 
+                sectionResults.getSection().id().value(),
+                sectionResults.getSection().description());
+        writeResults(header, sectionResults.getResults());
+    }
+
+    @Override
+    public void writeResults(String header, List<TckTestResult> results) {
+        final StringBuilder sectionBuilder = new StringBuilder()
+                .append(header).append(NL);
+        for (TckTestResult r : results) {
+            sectionBuilder.append(WS_4).append("[").append(r.getThrowableType()).append("] ")
+                    .append(r.getId()).append(" ").append(r.getDescription())
+                    .append(NL);
+        }
+        sectionBuilder.append(NL).append(DIVIDER).append(NL);
+        writeString(sectionBuilder.toString());
     }
 }
